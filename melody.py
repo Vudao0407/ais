@@ -3,7 +3,7 @@ from datetime import datetime
 from ai import AI
 from todo import Todo, Item
 from weather import Weather
-from calender_skill import CalenderSkill
+from skills.calender_skill import CalenderSkill
 import dateparser
 
 

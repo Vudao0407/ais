@@ -1,10 +1,15 @@
+
 from pyowm import OWM
 from geopy import Nominatim, location
 from datetime import datetime
+from dataclasses import dataclass
+from skills import factory
+from ai import AI
 
 
 class Weather():
-   # The location of where you want the forecast for
+
+    # The location of where you want the forecast for
     __location = "Ha Noi, VN"
 
     # API Key
@@ -14,8 +19,8 @@ class Weather():
         self.ow = OWM(self.api_key)
         self.mgr = self.ow.weather_manager()
         locator = Nominatim(user_agent="myGeocoder")
-        city = "Hanoi"
-        country = "VN"
+        city = "Bolton"
+        country = "GB"
         self.__location = city + ", " + country
         loc = locator.geocode(self.__location)
         self.lat = loc.latitude
@@ -43,7 +48,9 @@ class Weather():
 
     @property
     def forecast(self):
-        forecast = self.mgr.one_call(lat=52.5244, lon=13.4105)
+        """ Returns the forecast at this location """
+
+        forecast = self.mgr.one_call(lat=self.lat, lon=self.long)
         detail_status = forecast.forecast_daily[0].detailed_status
         pressure = str(forecast.forecast_daily[0].pressure.get('press'))
         humidity = str(forecast.forecast_daily[0].humidity)
@@ -55,13 +62,13 @@ class Weather():
             forecast.forecast_daily[0].temperature('celsius').get('day'))
         uvi = forecast.forecast_daily[0].uvi
 
-        print('detailed status: ', detail_status)
-        print("humidity ", humidity)
-        print("pressure ", pressure)
-        print("sunrise: ", sunrise)
-        print("Sunset ", sunset)
-        print("temperature", temperature)
-        print("UVI ", uvi)
+        # print('detailed status: ', detail_status)
+        # print("humidity ", humidity)
+        # print("pressure ", pressure)
+        # print("sunrise: ", sunrise)
+        # print("Sunset ", sunset)
+        # print("temperature", temperature)
+        # print("UVI ", uvi)
 
         message = "Here is the Weather: Today will be mostly " + detail_status \
             + ", humidity of " + humidity + " percent" \
@@ -75,5 +82,20 @@ class Weather():
         return message
 
 
-myweather = Weather()
-print(myweather.forecast)
+@dataclass
+class Weather_skill:
+    name = 'weather_skill'
+
+    def commands(self, command: str):
+        return ['weather', 'forecast', 'what is the weather like', 'give me the forecast', "what's the weather", "what's the weather like"]
+
+    def handle_command(self, command: str, ai: AI):
+        myweather = Weather()
+        forecast = myweather.forecast
+        ai.say(forecast)
+        return forecast
+
+
+def initialize():
+    factory.register('weather_skill', Weather_skill)
+    # print("Weather initialized")
