@@ -6,7 +6,9 @@
     "skills.jokes",
     "skills.calendar",
     "skills.mirror",
-    "skills.pomodoro"
+    "skills.pomodoro",
+    "skills.todo",
+    "skills.weather"
   ],
   "skills": [
     {
@@ -29,6 +31,12 @@
     },
     {
       "name": "pomodoro_skill"
+    },
+    {
+      "name": "todo_skill"
+    },
+    {
+      "name": "weather_skill"
     }
   ]
 }
