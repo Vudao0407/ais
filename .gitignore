@@ -1,0 +1,7 @@
+aivenv
+__pycache__
+.DS_Store
+key.py 
+model
+model_old
+aivenv*
