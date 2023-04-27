@@ -18,7 +18,7 @@ class AI():
         voices = self.engine.getProperty('voices')
         self.engine.setProperty('voice', voices[11].id)
 
-        model = Model('./model')  # path to model
+        model = Model('./model')
         self.r = KaldiRecognizer(model, 16000)
         self.m = PyAudio()
 
@@ -61,12 +61,15 @@ class AI():
         self.engine.endLoop()
 
     def listen(self):
+        def remove_prefix(text, prefix):
+            if text.startswith(prefix):
+                return text[len(prefix):]
+            return text
         phrase = ""
         if self.r.AcceptWaveform(self.audio.read(4096, exception_on_overflow=False)):
             self.before_listening.trigger()
             phrase = self.r.Result()
-            phrase = phrase.removeprefix('the')
-
+            phrase = remove_prefix(phrase, 'the ')
             phrase = str(json.loads(phrase)["text"])
 
             if phrase:
