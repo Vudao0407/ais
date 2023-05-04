@@ -61,10 +61,6 @@ class AI():
         self.engine.endLoop()
 
     def listen(self):
-        def remove_prefix(text, prefix):
-            if text.startswith(prefix):
-                return text[len(prefix):]
-            return text
         phrase = ""
         if self.r.AcceptWaveform(self.audio.read(4096, exception_on_overflow=False)):
             self.before_listening.trigger()
@@ -77,3 +73,7 @@ class AI():
             return phrase
 
         return None
+
+    def stop_ai(self):
+        self.engine.stop()
+        print("stopped engine")
