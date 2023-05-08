@@ -44,28 +44,38 @@ class AI():
         self.__name = value
         self.engine.say(sentence)
         self.engine.runAndWait()
-
-    def speak(self, sentence):
-        self.lock.acquire()
+        
+        
+        
+    def say(self,sentence):
         print(sentence)
         self.before_speaking.trigger(sentence)
         self.engine.say(sentence)
-        self.engine.iterate()
+        self.engine.runAndWait()
         self.after_speaking.trigger(sentence)
-        self.lock.release()
+        
 
-    def say(self, sentence):
-        self.engine.startLoop(False)
-        t = Thread(target=self.speak, args=(sentence,))
-        t.start()
-        self.engine.endLoop()
+    # def speak(self, sentence):
+    #     self.lock.acquire()
+    #     print(sentence)
+    #     self.before_speaking.trigger(sentence)
+    #     self.engine.say(sentence)
+    #     self.engine.iterate()
+    #     self.after_speaking.trigger(sentence)
+    #     self.lock.release()
+
+    # def say(self, sentence):
+    #     self.engine.startLoop(False)
+    #     t = Thread(target=self.speak, args=(sentence,))
+    #     t.start()
+    #     self.engine.endLoop()
 
     def listen(self):
         phrase = ""
         if self.r.AcceptWaveform(self.audio.read(4096, exception_on_overflow=False)):
             self.before_listening.trigger()
             phrase = self.r.Result()
-            phrase = phrase.removeprefix(phrase, 'the ')
+            phrase = phrase.removeprefix(phrase, 'the')
             phrase = str(json.loads(phrase)["text"])
 
             if phrase:
