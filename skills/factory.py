@@ -1,7 +1,7 @@
 from skills.skill import Skill
 from typing import Callable, Any
 
-skill_creation_funcs: 'dict[str, Callable[..., Skill]]' = {}
+skill_creation_funcs: dict[str, Callable[..., Skill]] = {}
 
 
 def register(skill_name: str, creation_func: Callable[..., Skill]):
@@ -15,7 +15,7 @@ def unregister(skill_name: str):
     skill_creation_funcs.pop(skill_name, None)
 
 
-def create(arguments: 'dict[str, Any]') -> Skill:
+def create(arguments: dict[str, Any]) -> Skill:
     """ Create a skill from a dictionary of arguments """
     args_copy = arguments.copy()
     skill_name = args_copy.pop('name')
