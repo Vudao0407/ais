@@ -23,7 +23,7 @@ class GooddaySkill:
         if hr > 21:
             message = "Night"
 
-        message = "Good " + message + " Kevin"
+        message = "Good " + message + " Sir"
         ai.say(message)
         return 'goodday'
 

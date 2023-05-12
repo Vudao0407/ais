@@ -203,13 +203,13 @@ class Todo_skill():
 
     def handle_command(self, command: str, ai: AI):
         if command in ["add to-do", "add to do", "add item"]:
-            add_todo()
+            add_todo(ai)
         command = ""
         if command in ["list todos", "list todo", "list to do", "list to-do", "list to do's", 'list items']:
-            list_todos()
+            list_todos(ai)
         command = ""
         if command in ["remove todo", "remove item", "mark done", "remove todos", "remove to-do", "remove to do's"]:
-            remove_todo()
+            remove_todo(ai)
         return command
 
 
@@ -230,8 +230,9 @@ def add_todo(alf: AI) -> bool:
         message = "Added " + item.title
         alf.say(message)
         return True
-    except:
+    except Exception as e:
         print("oops there was an error")
+        print("The error is: ",e)
         return False
 
 

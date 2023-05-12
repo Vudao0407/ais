@@ -180,6 +180,8 @@ class Calender_skill():
 
     def list_events(self, period, alf: AI) -> bool:
         this_period = self.calendar.list_events(period=period)
+        
+        print(this_period)
         if this_period is not None:
             message = "There "
             if len(this_period) > 1:
@@ -213,15 +215,15 @@ class Calender_skill():
     def handle_command(self, command: str, ai: AI):
 
         if command in ['add event', 'add to calendar', 'new event', 'add a new event']:
-            self.add_event()
+            self.add_event(alf=ai)
         if command in ['delete event', 'remove event', 'cancel event']:
-            self.remove_event()
+            self.remove_event(alf=ai)
         if command in ['list events', "what's on this month", "what's coming up this month"]:
-            self.list_events(period='this month')
+            self.list_events(period='this month',alf=ai)
         if command in ["what's on this week", "what's coming up this week", "what's happening"]:
-            self.list_events(period='this week')
+            self.list_events(period='this week',alf=ai)
         if command in ['list all events']:
-            self.list_events(period='all', ai=ai)
+            self.list_events(period='all', alf=ai)
 
 
 def initialize():
