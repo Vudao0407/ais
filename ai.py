@@ -16,7 +16,8 @@ class AI():
         self.engine = pyttsx3.init()
 
         voices = self.engine.getProperty('voices')
-        self.engine.setProperty('voice', voices[11].id)
+        self.engine.setProperty('voice', "vietnam")
+         
 
         model = Model('./model')
         self.r = KaldiRecognizer(model, 16000)

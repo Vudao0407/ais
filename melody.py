@@ -25,20 +25,20 @@ skills = [factory.create(item) for item in data["skills"]]
 print(f'skills: {skills}')
 
 # Load the plugins
-with open("./plugins/plugins.json") as f:
-    plugin_data = json.load(f)
-    print(f'plugins: {plugin_data["plugins"]}')
-    # load the plugins
-    plugin_loader.load_plugins(plugin_data["plugins"])
+# with open("./plugins/plugins.json") as f:
+#     plugin_data = json.load(f)
+#     print(f'plugins: {plugin_data["plugins"]}')
+#     # load the plugins
+#     plugin_loader.load_plugins(plugin_data["plugins"])
 
-plugins = [plugin_factory.create(item) for item in plugin_data["items"]]
+# plugins = [plugin_factory.create(item) for item in plugin_data["items"]]
 
-# Register all the plugins
-for item in plugins:
-    item.register(alf)
+# # Register all the plugins
+# for item in plugins:
+#     item.register(alf)
 
 alf.start.trigger()
-alf.say("Hello")
+alf.say("xin chào")
 command = ""
 while True and command not in ["good bye", 'bye', 'quit', 'exit', 'goodbye', 'the exit']:
     command = ""
